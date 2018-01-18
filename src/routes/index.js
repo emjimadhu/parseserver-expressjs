@@ -1,3 +1,4 @@
+// Importing Routes Controller
 const generalRoutes = require(__base + '/controllers/general')
 
 module.exports = (app) => {
