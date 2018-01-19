@@ -1,23 +1,22 @@
 // Parse server Import
 const ParseServer = require('parse-server').ParseServer
 
-// Import Constants
-const consts = require(__base + '/utils/consts')
-
-// Exporting Parse Instance
-module.exports.parseAPI = () => {
-  const parseInstance = new ParseServer({
-    databaseURI: consts.parse.databaseURL,
-    cloud: consts.parse.cloud,
-    appId: consts.parse.appID,
-    masterKey: consts.parse.masterKey,
-    serverURL: consts.parse.serverURL,
-    liveQuery: {
-      classNames: ["Posts", "Comments"]
-    }
-  })
-  return parseInstance
+// Parse Instance and Parse Live Query Export
+module.exports = {
+  parseAPI: (consts) => {
+    return new ParseServer({
+      databaseURI: consts.parse.databaseURL,
+      cloud: consts.parse.cloud,
+      appId: consts.parse.appID,
+      masterKey: consts.parse.masterKey,
+      serverURL: consts.parse.serverURL,
+      liveQuery: {
+        classNames: ["Posts", "Comments"]
+      }
+    })
+  },
+  liveQuery: (app) => {
+    return ParseServer.createLiveQueryServer(app)
+  }
 }
 
-// Exporting Parse Live Query Initialization
-module.exports.initLiveQuery = (app) => ParseServer.createLiveQueryServer(app)
